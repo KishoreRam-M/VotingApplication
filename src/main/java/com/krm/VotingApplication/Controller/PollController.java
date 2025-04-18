@@ -4,10 +4,7 @@ import com.krm.VotingApplication.Model.Poll;
 import com.krm.VotingApplication.Repo.PollRepo;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
 
@@ -32,6 +29,17 @@ public class PollController {
         try {
             return ResponseEntity.ok(repo.findById(id));
 
+        } catch (Exception e) {
+            return ResponseEntity.internalServerError().build();
+
+        }
+
+    }
+
+    @PostMapping
+    public ResponseEntity<?> createPoll(Poll poll) {
+        try {
+            return ResponseEntity.ok(repo.save(poll));
         } catch (Exception e) {
             return ResponseEntity.internalServerError().build();
 
